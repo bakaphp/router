@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+
+  mcphp:
+    image: mctekk/phalconphp:latest
+    volumes:
+      - .:/app
+    tty: true
+    ports:
+      - "9000:9000"
+    networks:
+      - local-network
+
+  memcached:
+    image: memcached
+    ports:
+      - "11211:11211"
+    networks:
+      - local-network
+
+networks:
+  local-network:

@@ -1,0 +1,28 @@
+{
+    "name": "baka/router",
+    "description": "Baka Route Component",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Esteban De la Rosa",
+            "email": "gabbanaesteban@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "baka/support": "^1.0.0"
+    },
+    "scripts": {
+        "test": "./vendor/bin/codecept run"
+    },
+    "require-dev": {
+        "codeception/codeception": "2.5",
+        "symfony/var-dumper": "^4.3@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Baka\\Router\\": "src/"
+        }
+    }
+}
