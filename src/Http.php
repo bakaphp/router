@@ -1,7 +1,9 @@
 <?php
+
 namespace Baka\Router;
 
-class Http {
+class Http
+{
     const POST = 'post';
     const GET = 'get';
     const PUT = 'put';
