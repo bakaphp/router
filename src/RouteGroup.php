@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace Baka\Router;
 
 use Baka\Support\Arr;
@@ -9,23 +10,23 @@ class RouteGroup
 {
     protected $defaultPrefix;
     protected $defaultNamespace;
+    protected $defaultAction;
     protected $routes = [];
 
     public function __construct(array $routes)
     {
-        
         $this->routes = $routes;
     }
 
-    public static function from(array $routes):self
+    public static function from(array $routes): self
     {
         return new self($routes);
     }
-    
-    public function add(Route $route):self
+
+    public function add(Route $route): self
     {
         $this->routes[] = $route;
-        
+
         return $this;
     }
 
@@ -43,14 +44,26 @@ class RouteGroup
         return $this;
     }
 
-    public function getDefaultPrefix(): string 
+    public function defaultAction(string $defaultAction): self
+    {
+        $this->defaultAction = $defaultAction;
+
+        return $this;
+    }
+
+    public function getDefaultPrefix(): string
     {
         return (string) $this->defaultPrefix;
     }
 
-    public function getDefaultNamespace(): string 
+    public function getDefaultNamespace(): string
     {
         return (string) $this->defaultNamespace;
+    }
+
+    public function getDefaultAction(): string
+    {
+        return (string) $this->defaultAction;
     }
 
     public function getRoutes(): array
@@ -79,6 +92,7 @@ class RouteGroup
     {
         $new = clone $this;
         $new->defaultPrefix = $defaultPrefix;
+
         return $new;
     }
 
@@ -88,18 +102,19 @@ class RouteGroup
         foreach ($this->routes as $route) {
             !$route->getPrefix() and $route->prefix($this->getDefaultPrefix());
             !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
+            !$route->getAction() and $route->action($this->getDefaultAction());
 
             $collections = array_merge($collections, $route->toCollections());
         }
 
-       return $collections; 
+        return $collections;
     }
 
     final public static function validateArrayOfRoutes(array $routes)
     {
         if (!Arr::all($routes, function ($route) {
             return $route instanceof Route;
-        })){
+        })) {
             throw new InvalidArgumentException(
                 'Array of Routes only accepted.'
             );

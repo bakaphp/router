@@ -248,7 +248,7 @@ class Route
      */
     public function action(string $action): self
     {
-        $this->action = $action;
+        $this->action = !$action ? null : $action;
 
         return $this;
     }
