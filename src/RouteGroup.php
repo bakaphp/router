@@ -100,7 +100,7 @@ class RouteGroup
     {
         $collections = [];
         foreach ($this->routes as $route) {
-            !$route->getPrefix() and $route->prefix($this->getDefaultPrefix());
+            !$route->getPrefix() and $this->getDefaultPrefix() and $route->prefix($this->getDefaultPrefix());
             !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
             !$route->getAction() and $route->action($this->getDefaultAction());
 
