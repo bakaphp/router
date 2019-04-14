@@ -1,6 +1,6 @@
 {
     "name": "baka/router",
-    "description": "Baka Route Component",
+    "description": "Baka Router Component",
     "license": "MIT",
     "authors": [
         {
@@ -10,8 +10,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.0",
-        "baka/support": "^1.0.0"
+        "php": ">=7.1",
+        "ext-phalcon": ">=3.4",
+        "baka/support": "^1"
     },
     "scripts": {
         "test": "./vendor/bin/codecept run"
