@@ -89,7 +89,7 @@ class RouteGroup
             !$route->getPrefix() and $route->prefix($this->getDefaultPrefix());
             !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
 
-            $collections = array_merge($collections, $route->toCollection());
+            $collections = array_merge($collections, $route->toCollections());
         }
 
        return $collections; 

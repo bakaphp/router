@@ -145,7 +145,7 @@ class Route
      *
      * @return array
      */
-    public function toCollection(): array
+    public function toCollections(): array
     {
         $this->populateEmptyProperties();
         $parser = new RouteParser($this);
@@ -214,7 +214,7 @@ class Route
         if (!is_array($methods)) {
             $methods = explode('|', $methods);
         }
-        
+
         $this->via = array_intersect(
                 $methods,
                 Http::METHODS
