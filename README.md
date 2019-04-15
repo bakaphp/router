@@ -46,7 +46,7 @@ $routeGroup = RouteGroup::from($routes)
 
 $collections = $routeGroup->getCollections();
 
-dump($collections); // 16 Collection instances
+var_dump($collections); // 16 Collection instances
 
 
 // Mount collections to the app
