@@ -118,18 +118,23 @@ class RouteGroup
 
     protected function setDefaultOptions(Route $route): Route
     {
-        $collections = [];
-        foreach ($this->routes as $route) {
         !$route->getPrefix() and $this->getDefaultPrefix() and $route->prefix($this->getDefaultPrefix());
         !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
         !$route->getAction() and $route->action($this->getDefaultAction());
 
         return $route;
     }
+
+    public function getCollections(): array
+    {
+        $collections = [];
+
+        foreach ($this->routes as $route) {
             $route = $this->setOptions($route);
+            $collections[] = $route->toCollections();
         }
 
-        return $collections;
+        return array_merge(...$collections);
     }
 
     final public static function validateArrayOfRoutes(array $routes)
