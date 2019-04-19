@@ -12,6 +12,7 @@ class RouteGroup
     protected $defaultNamespace;
     protected $defaultAction;
     protected $routes = [];
+    protected $middlewares = [];
 
     public function __construct(array $routes)
     {
@@ -23,9 +24,16 @@ class RouteGroup
         return new self($routes);
     }
 
-    public function add(Route $route): self
+    public function addRoute(Route $route): self
     {
         $this->routes[] = $route;
+
+        return $this;
+    }
+
+    public function addMiddlewares(...$middlewares): self
+    {
+        $this->middlewares = array_merge($this->middlewares, $middlewares);
 
         return $this;
     }
@@ -71,6 +79,11 @@ class RouteGroup
         return $this->routes;
     }
 
+    public function getMiddlewares(): array
+    {
+        return $this->middlewares;
+    }
+
     public function withRoutes(array $routes): self
     {
         $new = clone $this;
@@ -96,18 +109,32 @@ class RouteGroup
         return $new;
     }
 
+    protected function setOptions(Route $route): Route
+    {
+        $route = $this->setDefaultOptions($route);
+        $this->getMiddlewares() and $route->middlewares(...$this->getMiddlewares());
+        return $route;
+    }
+
+    protected function setDefaultOptions(Route $route): Route
+    {
+        !$route->getPrefix() and $this->getDefaultPrefix() and $route->prefix($this->getDefaultPrefix());
+        !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
+        !$route->getAction() and $route->action($this->getDefaultAction());
+
+        return $route;
+    }
+
     public function getCollections(): array
     {
         $collections = [];
-        foreach ($this->routes as $route) {
-            !$route->getPrefix() and $this->getDefaultPrefix() and $route->prefix($this->getDefaultPrefix());
-            !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
-            !$route->getAction() and $route->action($this->getDefaultAction());
 
-            $collections = array_merge($collections, $route->toCollections());
+        foreach ($this->routes as $route) {
+            $route = $this->setOptions($route);
+            $collections[] = $route->toCollections();
         }
 
-        return $collections;
+        return array_merge(...$collections);
     }
 
     final public static function validateArrayOfRoutes(array $routes)

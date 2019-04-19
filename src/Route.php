@@ -3,9 +3,8 @@
 namespace Baka\Router;
 
 use Baka\Support\Str;
-use InvalidArgumentException;
-use function is_array;
-use function explode;
+use Baka\Router\Util\Http;
+use Baka\Router\Parser\RouteParser;
 use function array_intersect;
 
 class Route
@@ -25,6 +24,7 @@ class Route
     protected $namespace;
     protected $controller;
     protected $via = [];
+    protected $middlewares = [];
 
     public function __construct(string $path)
     {
@@ -48,7 +48,7 @@ class Route
     public static function add(string $path): self
     {
         $route = new self($path);
-        $route->via(static::DEFAULT_HTTP_METHODS);
+        $route->via(...static::DEFAULT_HTTP_METHODS);
 
         return $route;
     }
@@ -66,7 +66,7 @@ class Route
     public static function get(string $path): self
     {
         $route = new self($path);
-        $route->via([Http::GET]);
+        $route->via(Http::GET);
 
         return $route;
     }
@@ -84,7 +84,7 @@ class Route
     public static function post(string $path): self
     {
         $route = new self($path);
-        $route->via([Http::POST]);
+        $route->via(Http::POST);
 
         return $route;
     }
@@ -101,7 +101,7 @@ class Route
     public static function put(string $path): self
     {
         $route = new self($path);
-        $route->via([Http::PUT]);
+        $route->via(Http::PUT);
 
         return $route;
     }
@@ -118,7 +118,7 @@ class Route
     public static function patch(string $path): self
     {
         $route = new self($path);
-        $route->via([Http::PATCH]);
+        $route->via(Http::PATCH);
 
         return $route;
     }
@@ -135,7 +135,7 @@ class Route
     public static function delete(string $path): self
     {
         $route = new self($path);
-        $route->via([Http::DELET]);
+        $route->via(Http::DELET);
 
         return $route;
     }
@@ -147,7 +147,7 @@ class Route
      */
     public function toCollections(): array
     {
-        $this->populateEmptyProperties();
+        $this->setDefaultOptions();
         $parser = new RouteParser($this);
 
         return $parser->parse();
@@ -203,17 +203,8 @@ class Route
      * @param string $prefix
      * @return self
      */
-    public function via($methods): self
+    public function via(...$methods): self
     {
-        if (!is_array($methods) and !is_string($methods)) {
-            throw new InvalidArgumentException(
-                'Array or string are only accepted.'
-            );
-        }
-
-        if (!is_array($methods)) {
-            $methods = explode('|', $methods);
-        }
 
         $this->via = array_intersect(
                 $methods,
@@ -249,6 +240,19 @@ class Route
     public function action(string $action): self
     {
         $this->action = !$action ? null : $action;
+
+        return $this;
+    }
+
+    /**
+     * Set middlewares to the current route
+     *
+     * @param [mixed] ...$middlewares
+     * @return self
+     */
+    public function middlewares(...$middlewares): self
+    {
+        $this->middlewares = array_merge($this->middlewares, $middlewares);
 
         return $this;
     }
@@ -291,6 +295,16 @@ class Route
     public function getVia(): array
     {
         return $this->via;
+    }
+
+    /**
+     * Return the route middlewares
+     *
+     * @return array
+     */
+    public function getMiddlewares(): array
+    {
+        return $this->middlewares;
     }
 
     /**
@@ -418,11 +432,11 @@ class Route
     }
 
     /**
-     * Set all the empty properties with default behavior
+     * Set all the empty properties with default options
      *
      * @return void
      */
-    protected function populateEmptyProperties(): void
+    protected function setDefaultOptions(): void
     {
         !$this->getVia() and $this->setDefaultVia();
         !$this->getController() and $this->setDefaultController();
@@ -435,7 +449,7 @@ class Route
      */
     protected function setDefaultVia(): void
     {
-        $this->via(static::DEFAULT_HTTP_METHODS);
+        $this->via(...static::DEFAULT_HTTP_METHODS);
     }
 
     /**
