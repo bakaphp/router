@@ -1,30 +1,30 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7512ca50b886845d8b5b6813425cdca",
+    "content-hash": "59bdbee6df91bcc60def4712024da1ea",
     "packages": [
         {
             "name": "baka/support",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bakaphp/support.git",
-                "reference": "10b3b8d03ec0f0a135d2731c295a73abf47acd8e"
+                "reference": "d3f62f77cf76b70d4a69b2b7d4c96b86c24771d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bakaphp/support/zipball/10b3b8d03ec0f0a135d2731c295a73abf47acd8e",
-                "reference": "10b3b8d03ec0f0a135d2731c295a73abf47acd8e",
+                "url": "https://api.github.com/repos/bakaphp/support/zipball/d3f62f77cf76b70d4a69b2b7d4c96b86c24771d5",
+                "reference": "d3f62f77cf76b70d4a69b2b7d4c96b86c24771d5",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "codeception/codeception": "^2.5"
+                "phpunit/phpunit": "^7"
             },
             "type": "library",
             "autoload": {
@@ -44,7 +44,76 @@
             ],
             "description": "The baka Support package.",
             "homepage": "https://mctekk.com",
-            "time": "2019-03-05T18:49:50+00:00"
+            "time": "2019-04-11T09:13:00+00:00"
+        },
+        {
+            "name": "phalcon/incubator",
+            "version": "3.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phalcon/incubator.git",
+                "reference": "32cb183044adee749002c9f16b1e01be10dc38af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phalcon/incubator/zipball/32cb183044adee749002c9f16b1e01be10dc38af",
+                "reference": "32cb183044adee749002c9f16b1e01be10dc38af",
+                "shasum": ""
+            },
+            "require": {
+                "ext-phalcon": "~3.3",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "codeception/aerospike-module": "^1.0",
+                "codeception/codeception": "^2.5",
+                "codeception/mockery-module": "0.2.2",
+                "codeception/specify": "^0.4",
+                "codeception/verify": "^0.3",
+                "doctrine/instantiator": "1.0.5",
+                "phalcon/dd": "^1.1",
+                "phpdocumentor/reflection-docblock": "2.0.4",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^2.9",
+                "vlucas/phpdotenv": "^2.4"
+            },
+            "suggest": {
+                "duncan3dc/fork-helper": "To use extended class to access the beanstalk queue service",
+                "ext-aerospike": "*",
+                "phalcon/ide-stubs": "Phalcon IDE Stubs",
+                "sergeyklay/aerospike-php-stubs": "The most complete Aerospike PHP stubs which allows autocomplete in modern IDEs",
+                "swiftmailer/swiftmailer": "~5.2",
+                "twig/twig": "~1.35|~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phalcon\\": "Library/Phalcon/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Phalcon Team",
+                    "email": "team@phalconphp.com",
+                    "homepage": "https://phalconphp.com/en/team"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/phalcon/incubator/graphs/contributors"
+                }
+            ],
+            "description": "Adapters, prototypes or functionality that can be potentially incorporated to the C-framework.",
+            "homepage": "https://phalconphp.com",
+            "keywords": [
+                "framework",
+                "incubator",
+                "phalcon"
+            ],
+            "time": "2019-03-18T14:02:52+00:00"
         }
     ],
     "packages-dev": [
@@ -394,12 +463,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "fa745406c2f48210693ba05f11280a1473037b2f"
+                "reference": "bf595424e4d442a190582e088985dc835a789071"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/fa745406c2f48210693ba05f11280a1473037b2f",
-                "reference": "fa745406c2f48210693ba05f11280a1473037b2f",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/bf595424e4d442a190582e088985dc835a789071",
+                "reference": "bf595424e4d442a190582e088985dc835a789071",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +521,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2019-02-26T17:21:14+00:00"
+            "time": "2019-04-15T08:22:37+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1199,12 +1268,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c29c0525cf4572c11efe1db49a8b8aee9dfac58a"
+                "reference": "134669cf0eeac3f79bc7f0c793efbc158bffc160"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c29c0525cf4572c11efe1db49a8b8aee9dfac58a",
-                "reference": "c29c0525cf4572c11efe1db49a8b8aee9dfac58a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/134669cf0eeac3f79bc7f0c793efbc158bffc160",
+                "reference": "134669cf0eeac3f79bc7f0c793efbc158bffc160",
                 "shasum": ""
             },
             "require": {
@@ -1275,7 +1344,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-03-26T13:23:54+00:00"
+            "time": "2019-04-19T15:50:46+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1939,12 +2008,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "5502f01de44b6275912c1c20c5a7dd3feb59c522"
+                "reference": "3fa7d8cbd2e5006038a09b8ef93f3859a89b627e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/5502f01de44b6275912c1c20c5a7dd3feb59c522",
-                "reference": "5502f01de44b6275912c1c20c5a7dd3feb59c522",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/3fa7d8cbd2e5006038a09b8ef93f3859a89b627e",
+                "reference": "3fa7d8cbd2e5006038a09b8ef93f3859a89b627e",
                 "shasum": ""
             },
             "require": {
@@ -1990,7 +2059,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2019-04-07T09:58:10+00:00"
+            "time": "2019-04-15T20:15:25+00:00"
         },
         {
             "name": "symfony/console",
@@ -1998,12 +2067,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "425c2023f6bdde287df2f32bef68845757827998"
+                "reference": "47b78954bea981abeccfed88eef3a9a57c15ca4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/425c2023f6bdde287df2f32bef68845757827998",
-                "reference": "425c2023f6bdde287df2f32bef68845757827998",
+                "url": "https://api.github.com/repos/symfony/console/zipball/47b78954bea981abeccfed88eef3a9a57c15ca4d",
+                "reference": "47b78954bea981abeccfed88eef3a9a57c15ca4d",
                 "shasum": ""
             },
             "require": {
@@ -2065,7 +2134,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-04-08T15:52:58+00:00"
+            "time": "2019-04-09T18:49:00+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -2073,12 +2142,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "2ae87c20fb85e5f71af65adfe39cde9e09a72ed2"
+                "reference": "c96781d350bcf402f3ee578c4d9c7f0d2e1e4605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/2ae87c20fb85e5f71af65adfe39cde9e09a72ed2",
-                "reference": "2ae87c20fb85e5f71af65adfe39cde9e09a72ed2",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/c96781d350bcf402f3ee578c4d9c7f0d2e1e4605",
+                "reference": "c96781d350bcf402f3ee578c4d9c7f0d2e1e4605",
                 "shasum": ""
             },
             "require": {
@@ -2136,7 +2205,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-04-07T08:26:05+00:00"
+            "time": "2019-04-15T17:24:46+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -2430,7 +2499,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.11.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -2489,7 +2558,7 @@
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "v1.11.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
@@ -2606,12 +2675,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "483b38ff95689915ddc1feeed1cbce6422467b02"
+                "reference": "7ae5878b84fc3a41ad92848a23c30ed159a8ccb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/483b38ff95689915ddc1feeed1cbce6422467b02",
-                "reference": "483b38ff95689915ddc1feeed1cbce6422467b02",
+                "url": "https://api.github.com/repos/symfony/process/zipball/7ae5878b84fc3a41ad92848a23c30ed159a8ccb8",
+                "reference": "7ae5878b84fc3a41ad92848a23c30ed159a8ccb8",
                 "shasum": ""
             },
             "require": {
@@ -2647,7 +2716,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2019-04-01T13:29:45+00:00"
+            "time": "2019-04-10T19:42:49+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -2655,12 +2724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "a442807552d1188166f8e27a9befd69678eafe66"
+                "reference": "8296e713485869de38a5f55ce2cce9a12fd107ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/a442807552d1188166f8e27a9befd69678eafe66",
-                "reference": "a442807552d1188166f8e27a9befd69678eafe66",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/8296e713485869de38a5f55ce2cce9a12fd107ad",
+                "reference": "8296e713485869de38a5f55ce2cce9a12fd107ad",
                 "shasum": ""
             },
             "require": {
@@ -2723,7 +2792,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-03-24T10:32:26+00:00"
+            "time": "2019-04-18T06:55:47+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -2884,7 +2953,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.1",
+        "ext-phalcon": ">=3.4"
     },
     "platform-dev": []
 }
