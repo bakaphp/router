@@ -12,6 +12,7 @@ class RouteGroup
     protected $defaultNamespace;
     protected $defaultAction;
     protected $routes = [];
+    protected $middlewares = [];
 
     public function __construct(array $routes)
     {
@@ -26,6 +27,13 @@ class RouteGroup
     public function add(Route $route): self
     {
         $this->routes[] = $route;
+
+        return $this;
+    }
+
+    public function addMiddlewares(...$middlewares): self
+    {
+        $this->middlewares = array_merge($this->middlewares, $middlewares);
 
         return $this;
     }
@@ -69,6 +77,11 @@ class RouteGroup
     public function getRoutes(): array
     {
         return $this->routes;
+    }
+
+    public function getMiddlewares(): array
+    {
+        return $this->middlewares;
     }
 
     public function withRoutes(array $routes): self

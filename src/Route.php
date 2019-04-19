@@ -25,6 +25,7 @@ class Route
     protected $namespace;
     protected $controller;
     protected $via = [];
+    protected $middlewares = [];
 
     public function __construct(string $path)
     {
@@ -254,6 +255,19 @@ class Route
     }
 
     /**
+     * Set middlewares to the current route
+     *
+     * @param [mixed] ...$middlewares
+     * @return self
+     */
+    public function middlewares(...$middlewares): self
+    {
+        $this->middlewares = array_merge($this->middlewares, $middlewares);
+
+        return $this;
+    }
+
+    /**
      * Get the route prefix
      *
      * @return string
@@ -291,6 +305,16 @@ class Route
     public function getVia(): array
     {
         return $this->via;
+    }
+
+    /**
+     * Return the route middlewares
+     *
+     * @return array
+     */
+    public function getMiddlewares(): array
+    {
+        return $this->middlewares;
     }
 
     /**
