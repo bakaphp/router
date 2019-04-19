@@ -1,7 +1,10 @@
 <?php
 
-namespace Baka\Router;
+namespace Baka\Router\Parser;
 
+use Baka\Router\Util\Http;
+use Baka\Router\Route;
+use Baka\Router\Collection;
 use function in_array;
 
 class RouteParser

@@ -1,6 +1,6 @@
 <?php
 
-namespace Baka\Router;
+namespace Baka\Router\Util;
 
 class Http
 {
