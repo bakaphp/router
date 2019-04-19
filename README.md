@@ -22,13 +22,16 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Baka\Router\RouteGroup;
 use Baka\Router\Route;
-use Baka\Router\Http;
+use Baka\Router\Util\Http;
 
 $routes = [
-    Route::add('u')->controller('UsersController')->via([Http::GET, Http::POST]),
+    Route::add('u')->controller('UsersController')->via(Http::GET, Http::POST),
     Route::get('custom-fields'),
     Route::put('users')->action('editUser'),
-    Route::add('companies'),
+    Route::add('companies')->middlewares(
+        'custom.middleware@before:10,12',
+        'custom.middleware2@after'
+    ),
 ];
 
 $anotherRoute = new Route('companies');
@@ -36,11 +39,11 @@ $anotherRoute = new Route('companies');
 $anotherRoute->prefix('/v2')
 ->controller('CompaniesController')
 ->namespace('App\\Api\\Controllers')
-->via("get|put|post");
+->via("get","put","post");
 
 $routeGroup = RouteGroup::from($routes)
-->add(Route::put('products')->action('edit'))
-->add($anotherRoute)
+->addRoute(Route::put('products')->action('edit'))
+->addRoute($anotherRoute)
 ->defaultPrefix('/Default')
 ->defaultNamespace('App\\Default\\Controllers');
 
