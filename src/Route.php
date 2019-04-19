@@ -147,7 +147,7 @@ class Route
      */
     public function toCollections(): array
     {
-        $this->populateEmptyProperties();
+        $this->setDefaultOptions();
         $parser = new RouteParser($this);
 
         return $parser->parse();
@@ -432,11 +432,11 @@ class Route
     }
 
     /**
-     * Set all the empty properties with default behavior
+     * Set all the empty properties with default options
      *
      * @return void
      */
-    protected function populateEmptyProperties(): void
+    protected function setDefaultOptions(): void
     {
         !$this->getVia() and $this->setDefaultVia();
         !$this->getController() and $this->setDefaultController();
