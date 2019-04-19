@@ -24,7 +24,7 @@ class RouteGroup
         return new self($routes);
     }
 
-    public function add(Route $route): self
+    public function addRoute(Route $route): self
     {
         $this->routes[] = $route;
 
