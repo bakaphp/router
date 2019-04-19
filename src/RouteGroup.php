@@ -109,15 +109,24 @@ class RouteGroup
         return $new;
     }
 
-    public function getCollections(): array
+    protected function setOptions(Route $route): Route
+    {
+        $route = $this->setDefaultOptions($route);
+        $this->getMiddlewares() and $route->middlewares(...$this->getMiddlewares());
+        return $route;
+    }
+
+    protected function setDefaultOptions(Route $route): Route
     {
         $collections = [];
         foreach ($this->routes as $route) {
-            !$route->getPrefix() and $this->getDefaultPrefix() and $route->prefix($this->getDefaultPrefix());
-            !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
-            !$route->getAction() and $route->action($this->getDefaultAction());
+        !$route->getPrefix() and $this->getDefaultPrefix() and $route->prefix($this->getDefaultPrefix());
+        !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
+        !$route->getAction() and $route->action($this->getDefaultAction());
 
-            $collections = array_merge($collections, $route->toCollections());
+        return $route;
+    }
+            $route = $this->setOptions($route);
         }
 
         return $collections;
