@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  mcphp:
+  phpserver:
     image: mctekk/phalconphp:latest
     volumes:
       - .:/app
