@@ -5,7 +5,6 @@ namespace Baka\Router;
 use Phalcon\Mvc\Micro\Collection as PhCollection;
 use Phalcon\Utils\Slug;
 use Baka\Router\Parser\MiddlewareParser;
-use Baka\Support\Arr;
 
 class Collection extends PhCollection
 {
@@ -27,23 +26,32 @@ class Collection extends PhCollection
         return $collection;
     }
 
+    /**
+     * Return collection's middlewares
+     *
+     * @return array
+     */
     public function getMiddlewares() : array
     {
         $middlewares = [
-            Middleware::BEFORE => [],
-            Middleware::AFTER => []
+           
         ];
 
         foreach ($this->route->getMiddlewares() as $notation) {
             $middlewareParser = new MiddlewareParser($notation);
             $middleware = $middlewareParser->parse();
-            $middlewares[$middleware->getEvent()][] = $middleware;
+            $middlewares[] = $middleware;
         }
 
-        return [$this->getCollectionIdentifier() => $middlewares];
+        return $middlewares;
     }
 
-    protected function getCollectionIdentifier() : string
+    /**
+     * Return a unique identifier for the current collection
+     *
+     * @return string
+     */
+    public function getCollectionIdentifier() : string
     {
         return Slug::generate(
             $this->getHandler().'-'.$this->getHandlers()[0][2]
