@@ -10,10 +10,10 @@ use function in_array;
 class RouteParser
 {
     const ACTIONS = [
-        Http::POST => 'save',
+        Http::POST => 'create',
         Http::GET => 'index',
-        Http::PUT => 'update',
-        Http::PATCH => 'update',
+        Http::PUT => 'edit',
+        Http::PATCH => 'edit',
         Http::DELETE => 'delete',
     ];
 
