@@ -125,7 +125,7 @@ class RouteGroup
         return $route;
     }
 
-    public function getCollections(): array
+    public function toCollections(): array
     {
         $collections = [];
 

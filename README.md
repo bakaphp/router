@@ -39,15 +39,16 @@ $anotherRoute = new Route('companies');
 $anotherRoute->prefix('/v2')
 ->controller('CompaniesController')
 ->namespace('App\\Api\\Controllers')
-->via("get","put","post");
+->via('get','put','post');
 
 $routeGroup = RouteGroup::from($routes)
 ->addRoute(Route::put('products')->action('edit'))
 ->addRoute($anotherRoute)
-->defaultPrefix('/Default')
-->defaultNamespace('App\\Default\\Controllers');
+->addMiddlewares('extra.middleware@before')
+->defaultNamespace('App\\Default\\Controllers')
+->defaultAction('call');
 
-$collections = $routeGroup->getCollections();
+$collections = $routeGroup->toCollections();
 
 var_dump($collections); // 16 Collection instances
 
