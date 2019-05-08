@@ -143,7 +143,7 @@ class RouteGroup
             return $route instanceof Route;
         })) {
             throw new InvalidArgumentException(
-                'Array of Routes only accepted.'
+                printf("Array of %s only accepted.", Route::class)
             );
         }
     }
