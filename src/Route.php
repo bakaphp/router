@@ -135,7 +135,7 @@ class Route
     public static function delete(string $path): self
     {
         $route = new self($path);
-        $route->via(Http::DELET);
+        $route->via(Http::DELETE);
 
         return $route;
     }
