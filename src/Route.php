@@ -4,7 +4,7 @@ namespace Baka\Router;
 
 use Baka\Support\Str;
 use Baka\Router\Utils\Http;
-use Baka\Router\Parser\RouteParser;
+use Baka\Router\Parsers\RouteParser;
 use function array_intersect;
 
 class Route
