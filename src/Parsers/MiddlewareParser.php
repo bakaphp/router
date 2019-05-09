@@ -1,5 +1,5 @@
 <?php
-namespace Baka\Router\Parser;
+namespace Baka\Router\Parsers;
 
 use Baka\Support\Str;
 use Baka\Support\Arr;

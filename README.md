@@ -22,7 +22,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Baka\Router\RouteGroup;
 use Baka\Router\Route;
-use Baka\Router\Util\Http;
+use Baka\Router\Utils\Http;
 
 $routes = [
     Route::add('u')->controller('UsersController')->via(Http::GET, Http::POST),
