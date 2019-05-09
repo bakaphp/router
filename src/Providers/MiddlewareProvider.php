@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Baka\Router\Provider;
+namespace Baka\Router\Providers;
 
 use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\DiInterface;
 use Phalcon\Events\Manager;
 use Phalcon\Mvc\Micro;
-use Baka\Router\Middleware\RouteMiddleware;
+use Baka\Router\Middlewares\RouteMiddleware;
 
 class MiddlewareProvider implements ServiceProviderInterface
 {

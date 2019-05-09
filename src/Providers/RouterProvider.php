@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Baka\Router\Provider;
+namespace Baka\Router\Providers;
 
 use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\DiInterface;

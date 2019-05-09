@@ -1,8 +1,8 @@
 <?php
 
-namespace Baka\Router\Parser;
+namespace Baka\Router\Parsers;
 
-use Baka\Router\Util\Http;
+use Baka\Router\Utils\Http;
 use Baka\Router\Route;
 use Baka\Router\Collection;
 use function in_array;

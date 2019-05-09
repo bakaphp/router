@@ -4,7 +4,7 @@ namespace Baka\Router;
 
 use Phalcon\Mvc\Micro\Collection as PhCollection;
 use Phalcon\Utils\Slug;
-use Baka\Router\Parser\MiddlewareParser;
+use Baka\Router\Parsers\MiddlewareParser;
 
 class Collection extends PhCollection
 {

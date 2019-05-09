@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Baka\Router\Middleware;
+namespace Baka\Router\Middlewares;
 
 use Phalcon\Mvc\Micro;
 use Phalcon\Utils\Slug;
