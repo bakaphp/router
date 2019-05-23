@@ -44,7 +44,7 @@ class RouteParser
 
         $collection->post(
             $this->route->getPattern(),
-            "{$action}Action"
+            $action
         );
 
         $collections[] = $collection;
@@ -60,12 +60,12 @@ class RouteParser
 
         $collection->get(
             $this->route->getPattern(),
-            "{$action}Action"
+            $action
         );
 
         $collection2->get(
             $this->route->getPattern().'/{id:[0-9]+}',
-            "{$action}Action"
+            $action
         );
 
         $collections[] = $collection;
@@ -81,7 +81,7 @@ class RouteParser
 
         $collection->put(
             $this->route->getPattern().'/{id:[0-9]+}',
-            "{$action}Action"
+            $action
         );
 
         $collections[] = $collection;
@@ -96,7 +96,7 @@ class RouteParser
 
         $collection->patch(
             $this->route->getPattern().'/{id:[0-9]+}',
-            "{$action}Action"
+            $action
         );
 
         $collections[] = $collection;
@@ -111,7 +111,7 @@ class RouteParser
 
         $collection->delete(
             $this->route->getPattern().'/{id:[0-9]+}',
-            "{$action}Action"
+            $action
         );
 
         $collections[] = $collection;
