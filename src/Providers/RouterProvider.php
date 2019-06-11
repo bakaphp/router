@@ -50,7 +50,7 @@ class RouterProvider implements ServiceProviderInterface
             $key = $collection->getCollectionIdentifier();
             $middlewares = $collection->getMiddlewares();
 
-            $middlewares and $routeMiddlewares[$key]= $middlewares;
+            $middlewares and $routeMiddlewares[$key] = $middlewares;
         }
 
 

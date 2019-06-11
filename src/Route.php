@@ -462,7 +462,7 @@ class Route
         $path = preg_replace('/[^a-zA-Z]/', '', $this->getPath());
 
         $this->controller(
-        Str::camelize($path, '-') . 'Controller'
-       );
+            Str::camelize($path, '-') . 'Controller'
+        );
     }
 }
