@@ -33,14 +33,11 @@ class Collection extends PhCollection
      */
     public function getMiddlewares() : array
     {
-        $middlewares = [
-           
-        ];
+        $middlewares = [];
 
         foreach ($this->route->getMiddlewares() as $notation) {
             $middlewareParser = new MiddlewareParser($notation);
-            $middleware = $middlewareParser->parse();
-            $middlewares[] = $middleware;
+            $middlewares[] = $middlewareParser->parse();
         }
 
         return $middlewares;
