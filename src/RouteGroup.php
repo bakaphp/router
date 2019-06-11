@@ -61,19 +61,19 @@ class RouteGroup
         return $this;
     }
 
-    public function getDefaultPrefix(): string
+    public function getDefaultPrefix(): ?string
     {
-        return (string) $this->defaultPrefix;
+        return $this->defaultPrefix;
     }
 
-    public function getDefaultNamespace(): string
+    public function getDefaultNamespace(): ?string
     {
-        return (string) $this->defaultNamespace;
+        return $this->defaultNamespace;
     }
 
-    public function getDefaultAction(): string
+    public function getDefaultAction(): ?string
     {
-        return (string) $this->defaultAction;
+        return $this->defaultAction;
     }
 
     public function getRoutes(): array

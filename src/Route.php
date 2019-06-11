@@ -254,9 +254,9 @@ class Route
      *
      * @return string
      */
-    public function getPrefix(): string
+    public function getPrefix(): ?string
     {
-        return (string) $this->prefix;
+        return $this->prefix;
     }
 
     /**
@@ -264,9 +264,9 @@ class Route
      *
      * @return string
      */
-    public function getNamespace(): string
+    public function getNamespace(): ?string
     {
-        return (string) $this->namespace;
+        return $this->namespace;
     }
 
     /**
@@ -274,9 +274,9 @@ class Route
      *
      * @return string
      */
-    public function getController(): string
+    public function getController(): ?string
     {
-        return (string) $this->controller;
+        return $this->controller;
     }
 
     /**
