@@ -5,6 +5,7 @@ namespace Baka\Router;
 use Baka\Support\Str;
 use Baka\Router\Utils\Http;
 use Baka\Router\Parsers\RouteParser;
+use Baka\Router\Utils\Helper;
 use function array_intersect;
 
 class Route

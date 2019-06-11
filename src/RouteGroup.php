@@ -2,9 +2,8 @@
 
 namespace Baka\Router;
 
-use Baka\Support\Arr;
-use InvalidArgumentException;
-use function array_merge;
+use Baka\Router\Utils\Helper;
+use function array_push;
 
 class RouteGroup
 {
@@ -35,7 +34,7 @@ class RouteGroup
 
     public function addMiddlewares(...$middlewares): self
     {
-        $this->middlewares = array_merge($this->middlewares, $middlewares);
+        array_push($this->middlewares,...$middlewares);
 
         return $this;
     }
@@ -143,20 +142,9 @@ class RouteGroup
 
         foreach ($this->routes as $route) {
             $route = $this->setOptions($route);
-            $collections[] = $route->toCollections();
+            array_push($collections,...$route->toCollections());
         }
 
-        return array_merge(...$collections);
-    }
-
-    final public static function validateArrayOfRoutes(array $routes)
-    {
-        if (!Arr::all($routes, function ($route) {
-            return $route instanceof Route;
-        })) {
-            throw new InvalidArgumentException(
-                printf("Array of %s only accepted.", Route::class)
-            );
-        }
+        return $collections;
     }
 }
