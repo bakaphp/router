@@ -356,7 +356,7 @@ class Route
     public function withPrefix(string $prefix): self
     {
         $new = clone $this;
-        $new->prefix = $prefix;
+        $new->prefix($prefix);
 
         return $new;
     }
@@ -370,7 +370,7 @@ class Route
     public function withNamespace(string $namespace): self
     {
         $new = clone $this;
-        $new->namespace = $namespace;
+        $new->namespace($namespace);
 
         return $new;
     }
@@ -384,7 +384,7 @@ class Route
     public function withController(string $controller): self
     {
         $new = clone $this;
-        $new->controller = $controller;
+        $new->controller($controller);
 
         return $new;
     }
@@ -395,10 +395,10 @@ class Route
      * @param $methods
      * @return self
      */
-    public function withVia($methods): self
+    public function withVia(...$methods): self
     {
         $new = clone $this;
-        $new->methods = $methods;
+        $new->via(...$methods);
 
         return $new;
     }
@@ -412,7 +412,7 @@ class Route
     public function withPath(string $path): self
     {
         $new = clone $this;
-        $new->path = $path;
+        $new->path($path);
 
         return $new;
     }
@@ -426,7 +426,7 @@ class Route
     public function withAction(string $action): self
     {
         $new = clone $this;
-        $new->action = $action;
+        $new->action($action);
 
         return $new;
     }

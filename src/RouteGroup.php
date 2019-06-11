@@ -96,7 +96,7 @@ class RouteGroup
     public function withNamespace(string $defaultNamespace): self
     {
         $new = clone $this;
-        $new->defaultNamespace = $defaultNamespace;
+        $new->defaultNamespace($defaultNamespace);
 
         return $new;
     }
@@ -104,7 +104,15 @@ class RouteGroup
     public function withPrefix(string $defaultPrefix): self
     {
         $new = clone $this;
-        $new->defaultPrefix = $defaultPrefix;
+        $new->defaultPrefix($defaultPrefix);
+
+        return $new;
+    }
+
+    public function withAction(string $defaultAction): self
+    {
+        $new = clone $this;
+        $new->defaultAction($defaultAction);
 
         return $new;
     }
