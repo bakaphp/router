@@ -16,7 +16,9 @@ class RouteGroup
 
     public function __construct(array $routes)
     {
-        $this->routes = $routes;
+        foreach ($routes as $route) {
+            $this->addRoute($route);
+        }
     }
 
     public static function from(array $routes): self
@@ -87,8 +89,10 @@ class RouteGroup
     public function withRoutes(array $routes): self
     {
         $new = clone $this;
-        static::validateArrayOfRoutes($routes);
-        $new->routes = $routes;
+
+        foreach ($routes as $route) {
+            $new->addRoute($route);
+        }
 
         return $new;
     }
