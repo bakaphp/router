@@ -326,18 +326,30 @@ class Route
      * @return string
      */
     public function getPattern(): string
-    {
-        return $this->getPrefix() . $this->getPath();
+    {   
+        $path = (string) $this->getPath();
+
+        if($prefix = $this->getPrefix()){
+           return $prefix . '\\' . $path;
+        }
+
+        return $path;
     }
 
     /**
-     * Return the collection hablnder
+     * Return the collection handler
      *
      * @return string
      */
     public function getHanlder(): string
     {
-        return $this->getNamespace() . '\\' . $this->getController();
+        $controller = (string) $this->getController();
+
+        if($namespace = $this->getNamespace()){
+           return $namespace . '\\' . $controller;
+        }
+
+        return $controller;
     }
 
     /**
