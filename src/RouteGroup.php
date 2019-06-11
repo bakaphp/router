@@ -42,21 +42,21 @@ class RouteGroup
 
     public function defaultNamespace(string $defaultNamespace): self
     {
-        $this->defaultNamespace = $defaultNamespace;
+        $this->defaultNamespace = Helper::trimSlahes($defaultNamespace);
 
         return $this;
     }
 
     public function defaultPrefix(string $defaultPrefix): self
     {
-        $this->defaultPrefix = $defaultPrefix;
+        $this->defaultPrefix = Helper::trimSlahes($defaultPrefix);
 
         return $this;
     }
 
     public function defaultAction(string $defaultAction): self
     {
-        $this->defaultAction = $defaultAction;
+        $this->defaultAction = Helper::trimSlahes($defaultAction);
 
         return $this;
     }

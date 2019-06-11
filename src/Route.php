@@ -161,11 +161,7 @@ class Route
      */
     public function prefix(string $prefix): self
     {
-        if (!Str::startsWith($prefix, '/')) {
-            $prefix = '/' . $prefix;
-        }
-
-        $this->prefix = $prefix;
+        $this->prefix = Helper::trimSlahes($prefix);
 
         return $this;
     }
@@ -178,7 +174,7 @@ class Route
      */
     public function namespace(string $namespace): self
     {
-        $this->namespace = $namespace;
+        $this->namespace = Helper::trimSlahes($namespace);
 
         return $this;
     }
@@ -191,7 +187,7 @@ class Route
      */
     public function controller(string $controller): self
     {
-        $this->controller = $controller;
+        $this->controller = Helper::trimSlahes($controller);
 
         return $this;
     }
@@ -222,11 +218,7 @@ class Route
      */
     public function path(string $path): self
     {
-        if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
-        }
-
-        $this->path = $path;
+        $this->path = Helper::trimSlahes($path);
 
         return $this;
     }
@@ -239,7 +231,7 @@ class Route
      */
     public function action(string $action): self
     {
-        $this->action = !$action ? null : $action;
+        $this->action = Helper::trimSlahes($action);
 
         return $this;
     }
