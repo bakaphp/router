@@ -64,7 +64,7 @@ class RouteParser
         );
 
         $collection2->get(
-            $this->route->getPattern().'/{id:[0-9]+}',
+            $this->route->getPattern().'/{id:[0-9]+}', // TODO: Find a name to use a constant
             $action
         );
 
