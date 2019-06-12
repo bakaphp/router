@@ -130,8 +130,8 @@ class RouteGroup
     protected function setDefaultOptions(Route $route): Route
     {
         !$route->getPrefix() and $this->getDefaultPrefix() and $route->prefix($this->getDefaultPrefix());
-        !$route->getNamespace() and $route->namespace($this->getDefaultNamespace());
-        !$route->getAction() and $route->action($this->getDefaultAction());
+        !$route->getNamespace() and $this->getDefaultNamespace() and $route->namespace($this->getDefaultNamespace());
+        !$route->getAction() and $this->getDefaultAction() and $route->action($this->getDefaultAction());
 
         return $route;
     }
