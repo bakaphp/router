@@ -333,7 +333,7 @@ class Route
             return '/' . $path;
         }
 
-        return '/'. $prefix . '/' . $path;
+        return rtrim('/'. $prefix . '/' . $path, '/');
     }
 
     /**
