@@ -329,11 +329,11 @@ class Route
     {   
         $path = (string) $this->getPath();
 
-        if($prefix = $this->getPrefix()){
-           return $prefix . '\\' . $path;
+        if(!$prefix = $this->getPrefix()){
+            return '/' . $path;
         }
 
-        return $path;
+        return '/'. $prefix . '/' . $path;
     }
 
     /**
