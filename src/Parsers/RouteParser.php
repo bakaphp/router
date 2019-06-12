@@ -51,6 +51,7 @@ class RouteParser
 
         return $collections;
     }
+
     protected function getGetCollections(): array
     {
         $collection = Collection::fromRoute($this->route);
@@ -65,7 +66,7 @@ class RouteParser
 
         $collection2->get(
             $this->route->getPattern().'/{id:[0-9]+}', // TODO: Find a name to use a constant
-            $action
+            'getById' // TODO: Find a better way to achieve this
         );
 
         $collections[] = $collection;
@@ -73,6 +74,7 @@ class RouteParser
 
         return $collections;
     }
+
     protected function getPutCollection(): array
     {
         $collection = Collection::fromRoute($this->route);
@@ -88,6 +90,7 @@ class RouteParser
 
         return $collections;
     }
+
     protected function getPatchCollection(): array
     {
         $collection = Collection::fromRoute($this->route);
@@ -103,6 +106,7 @@ class RouteParser
 
         return $collections;
     }
+
     protected function getDeleteCollection(): array
     {
         $collection = Collection::fromRoute($this->route);
