@@ -27,16 +27,16 @@ class RouteParser
     public function parse()
     {
         $collections = [];
-        $this->hasMethod(Http::POST) and $collections = $this->addPostCollection($collections);
-        $this->hasMethod(Http::GET) and $collections = $this->addGetCollections($collections);
-        $this->hasMethod(Http::PUT) and $collections = $this->addPutCollection($collections);
-        $this->hasMethod(Http::PATCH) and $collections = $this->addPatchCollection($collections);
-        $this->hasMethod(Http::DELETE) and $collections = $this->addDeleteCollection($collections);
+        $this->hasMethod(Http::POST) and array_push($collections,...$this->getPostCollection());
+        $this->hasMethod(Http::GET) and array_push($collections,...$this->getGetCollections());
+        $this->hasMethod(Http::PUT) and array_push($collections,...$this->getPutCollection());
+        $this->hasMethod(Http::PATCH) and array_push($collections,...$this->getPatchCollection());
+        $this->hasMethod(Http::DELETE) and array_push($collections,...$this->getDeleteCollection());
         
         return $collections;
     }
 
-    protected function addPostCollection(array $collections): array
+    protected function getPostCollection(): array
     {
         $collection = Collection::fromRoute($this->route);
 
@@ -51,7 +51,7 @@ class RouteParser
 
         return $collections;
     }
-    protected function addGetCollections(array $collections): array
+    protected function getGetCollections(): array
     {
         $collection = Collection::fromRoute($this->route);
         $collection2 = clone $collection;
@@ -73,7 +73,7 @@ class RouteParser
 
         return $collections;
     }
-    protected function addPutCollection(array $collections): array
+    protected function getPutCollection(): array
     {
         $collection = Collection::fromRoute($this->route);
 
@@ -88,7 +88,7 @@ class RouteParser
 
         return $collections;
     }
-    protected function addPatchCollection(array $collections): array
+    protected function getPatchCollection(): array
     {
         $collection = Collection::fromRoute($this->route);
 
@@ -103,7 +103,7 @@ class RouteParser
 
         return $collections;
     }
-    protected function addDeleteCollection(array $collections): array
+    protected function getDeleteCollection(): array
     {
         $collection = Collection::fromRoute($this->route);
         
