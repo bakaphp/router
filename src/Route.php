@@ -49,7 +49,7 @@ class Route
     public static function add(string $path): self
     {
         $route = new self($path);
-        $route->via(static::DEFAULT_HTTP_METHODS);
+        $route->via(...static::DEFAULT_HTTP_METHODS);
         $route->setGroup(true);
 
         return $route;
