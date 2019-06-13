@@ -10,7 +10,6 @@ use function array_intersect;
 
 class Route
 {
-
     const DEFAULT_HTTP_METHODS = [
         Http::POST,
         Http::GET,
@@ -26,6 +25,7 @@ class Route
     protected $controller;
     protected $via = [];
     protected $middlewares = [];
+    protected $isGroup = false;
 
     public function __construct(string $path)
     {
@@ -33,7 +33,7 @@ class Route
     }
 
     /**
-     * Create a Route instance based on the path given accessible through all default methods
+     * Create a Route instance based on the path given accessible through all default methods.
      *
      *@get (/path)
      *@get (/path/{id:[0-9]+)
@@ -49,13 +49,14 @@ class Route
     public static function add(string $path): self
     {
         $route = new self($path);
-        $route->via(...static::DEFAULT_HTTP_METHODS);
+        $route->via(static::DEFAULT_HTTP_METHODS);
+        $route->setGroup(true);
 
         return $route;
     }
 
     /**
-     * Create a Route instance based on the path given accessible only through get method
+     * Create a Route instance based on the path given accessible only through get method.
      *
      *@get (/path)
      *@get (/path/{id:[0-9]+)
@@ -72,9 +73,8 @@ class Route
         return $route;
     }
 
-
     /**
-     * Create a Route instance based on the path given accessible only through post method
+     * Create a Route instance based on the path given accessible only through post method.
      *
      *@post (/path)
      *
@@ -91,7 +91,7 @@ class Route
     }
 
     /**
-     * CCreate a Route instance based on the path given accessible only through put method
+     * CCreate a Route instance based on the path given accessible only through put method.
      *
      *@put (/path/{id:[0-9]+)
      *
@@ -108,7 +108,7 @@ class Route
     }
 
     /**
-     * Create a Route instance based on the path given accessible only through patch method
+     * Create a Route instance based on the path given accessible only through patch method.
      *
      *@patch (/path/{id:[0-9]+)
      *
@@ -125,7 +125,7 @@ class Route
     }
 
     /**
-     * Create a Route instance based on the path given accessible only through delete method
+     * Create a Route instance based on the path given accessible only through delete method.
      *
      *@delete (/path/{id:[0-9]+)
      *
@@ -142,7 +142,7 @@ class Route
     }
 
     /**
-     * Return an array of Collection instances based on the Route
+     * Return an array of Collection instances based on the Route.
      *
      * @return array
      */
@@ -155,7 +155,7 @@ class Route
     }
 
     /**
-     * Set a prefix to the route
+     * Set a prefix to the route.
      *
      * @param string $prefix
      * @return self
@@ -166,9 +166,9 @@ class Route
 
         return $this;
     }
-    
+
     /**
-     * Set a namespace to the route
+     * Set a namespace to the route.
      *
      * @param string $prefix
      * @return self
@@ -181,7 +181,7 @@ class Route
     }
 
     /**
-     * Set a controller to the route
+     * Set a controller to the route.
      *
      * @param string $prefix
      * @return self
@@ -202,17 +202,16 @@ class Route
      */
     public function via(...$methods): self
     {
-
         $this->via = array_intersect(
-                $methods,
-                Http::METHODS
+            $methods,
+            Http::METHODS
             );
 
         return $this;
     }
 
     /**
-     * Set the path to match the route
+     * Set the path to match the route.
      *
      * @param string $path
      * @return self
@@ -225,7 +224,7 @@ class Route
     }
 
     /**
-     * Set the method that will be call when the route is matched
+     * Set the method that will be call when the route is matched.
      *
      * @param string $action
      * @return self
@@ -238,7 +237,7 @@ class Route
     }
 
     /**
-     * Set middlewares to the current route
+     * Set middlewares to the current route.
      *
      * @param [mixed] ...$middlewares
      * @return self
@@ -251,7 +250,7 @@ class Route
     }
 
     /**
-     * Get the route prefix
+     * Get the route prefix.
      *
      * @return string
      */
@@ -261,7 +260,7 @@ class Route
     }
 
     /**
-     * Return the route namespace
+     * Return the route namespace.
      *
      * @return string
      */
@@ -271,7 +270,7 @@ class Route
     }
 
     /**
-     * Return the route controller
+     * Return the route controller.
      *
      * @return string
      */
@@ -281,7 +280,7 @@ class Route
     }
 
     /**
-     * Return the route http methods
+     * Return the route http methods.
      *
      * @return array
      */
@@ -291,7 +290,7 @@ class Route
     }
 
     /**
-     * Return the route middlewares
+     * Return the route middlewares.
      *
      * @return array
      */
@@ -301,7 +300,7 @@ class Route
     }
 
     /**
-     * Return the route path
+     * Return the route path.
      *
      * @return string
      */
@@ -311,7 +310,7 @@ class Route
     }
 
     /**
-     * Return the route action
+     * Return the route action.
      *
      * @return string|null
      */
@@ -321,23 +320,23 @@ class Route
     }
 
     /**
-     * Return the collection pattern
+     * Return the collection pattern.
      *
      * @return string
      */
     public function getPattern(): string
-    {   
+    {
         $path = (string) $this->getPath();
 
-        if(!$prefix = $this->getPrefix()){
+        if (!$prefix = $this->getPrefix()) {
             return '/' . $path;
         }
 
-        return rtrim('/'. $prefix . '/' . $path, '/');
+        return rtrim('/' . $prefix . '/' . $path, '/');
     }
 
     /**
-     * Return the collection handler
+     * Return the collection handler.
      *
      * @return string
      */
@@ -345,15 +344,15 @@ class Route
     {
         $controller = (string) $this->getController();
 
-        if($namespace = $this->getNamespace()){
-           return $namespace . '\\' . $controller;
+        if ($namespace = $this->getNamespace()) {
+            return $namespace . '\\' . $controller;
         }
 
         return $controller;
     }
 
     /**
-     * Return a copy of the Route with the given prefix set
+     * Return a copy of the Route with the given prefix set.
      *
      * @param string $prefix
      * @return self
@@ -367,7 +366,7 @@ class Route
     }
 
     /**
-     * Return a copy of the Route with the given namespace set
+     * Return a copy of the Route with the given namespace set.
      *
      * @param string $namespace
      * @return self
@@ -381,7 +380,7 @@ class Route
     }
 
     /**
-     * Return a copy of the Route with the given controller set
+     * Return a copy of the Route with the given controller set.
      *
      * @param string $controller
      * @return self
@@ -395,7 +394,7 @@ class Route
     }
 
     /**
-     * Return a copy of the Route with the given http methods set
+     * Return a copy of the Route with the given http methods set.
      *
      * @param $methods
      * @return self
@@ -409,7 +408,7 @@ class Route
     }
 
     /**
-     * Return a copy of the Route with the given path set
+     * Return a copy of the Route with the given path set.
      *
      * @param string $path
      * @return self
@@ -423,7 +422,7 @@ class Route
     }
 
     /**
-     * Return a copy of the Route with the given action set
+     * Return a copy of the Route with the given action set.
      *
      * @param string $action
      * @return self
@@ -437,7 +436,7 @@ class Route
     }
 
     /**
-     * Set all the empty properties with default options
+     * Set all the empty properties with default options.
      *
      * @return void
      */
@@ -448,7 +447,7 @@ class Route
     }
 
     /**
-     * Set default http methods as via
+     * Set default http methods as via.
      *
      * @return void
      */
@@ -458,7 +457,7 @@ class Route
     }
 
     /**
-     * Set the controller property based on the path given
+     * Set the controller property based on the path given.
      *
      * @return void
      */
@@ -469,5 +468,26 @@ class Route
         $this->controller(
             Str::camelize($path, '-') . 'Controller'
         );
+    }
+
+    /**
+     * We need to let this object know when we are working with a set of group routes.
+     *
+     * @param boolean $state
+     * @return void
+     */
+    public function setGroup(bool $state): void
+    {
+        $this->isGroup = $state;
+    }
+
+    /**
+     * Is this a group route?
+     *
+     * @return void
+     */
+    public function isGroup(): bool
+    {
+        return $this->isGroup;
     }
 }
