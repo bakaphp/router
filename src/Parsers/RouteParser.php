@@ -96,13 +96,16 @@ class RouteParser
             $action
         );
 
-        $collection2->get(
-            $this->route->getPattern() . $this->groupRouteHandle($this->route), // TODO: Find a name to use a constant
-            'getById' // TODO: Find a better way to achieve this
-        );
-
         $collections[] = $collection;
-        $collections[] = $collection2;
+
+        if ($this->route->isGroup()) {
+            $collection2->get(
+                $this->route->getPattern() . $this->groupRouteHandle($this->route), // TODO: Find a name to use a constant
+                'getById' // TODO: Find a better way to achieve this
+            );
+
+            $collections[] = $collection2;
+        }
 
         return $collections;
     }
