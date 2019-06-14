@@ -46,13 +46,25 @@ class Route
      *
      * @return self
      */
-    public static function add(string $path): self
+    public static function crud(string $path): self
     {
         $route = new self($path);
         $route->via(...static::DEFAULT_HTTP_METHODS);
-        $route->setGroup(true);
+        
+        $route->useRestConvention(true);
 
         return $route;
+    }
+
+    /**
+     * Alias for crud static method
+     *
+     * @param string $path
+     * @return self
+     */
+    public static function add(string $path): self
+    {
+        return static::crud($path);
     }
 
     /**
