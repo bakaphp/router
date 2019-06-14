@@ -17,6 +17,9 @@ class RouteParser
         Http::DELETE => 'delete',
     ];
 
+    const GET_SPECIFIC_RESOURCE_ACTION = 'getById';
+    const SPECIFIC_RESOURCE_PATH = '/{id}';
+
     protected $route;
 
     /**
