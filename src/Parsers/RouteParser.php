@@ -21,6 +21,7 @@ class RouteParser
     const SPECIFIC_RESOURCE_PATH = '/{id}';
 
     protected $route;
+    protected $collections = [];
 
     /**
      * Contructor.
@@ -37,36 +38,33 @@ class RouteParser
      *
      * @return void
      */
-    public function parse()
+    public function parse(): array
     {
-        $collections = [];
-        $this->hasMethod(Http::POST) and array_push($collections, ...$this->getPostCollection());
-        $this->hasMethod(Http::GET) and array_push($collections, ...$this->getGetCollections());
-        $this->hasMethod(Http::PUT) and array_push($collections, ...$this->getPutCollection());
-        $this->hasMethod(Http::PATCH) and array_push($collections, ...$this->getPatchCollection());
-        $this->hasMethod(Http::DELETE) and array_push($collections, ...$this->getDeleteCollection());
+        $this->hasMethod(Http::POST) and $this->addPostCollection();
+        $this->hasMethod(Http::GET) and $this->addGetCollection();
+        $this->hasMethod(Http::PUT) and $this->addPutCollection();
+        $this->hasMethod(Http::PATCH) and $this->addPatchCollection();
+        $this->hasMethod(Http::DELETE) and $this->addDeleteCollection();
 
-        return $collections;
+        return $this->getCollections();
     }
 
     /**
-     * Given the route we will add add additional handles if needed
-     * right now it will only be for groups.
-     *
-     * @param Route $route
-     * @return string|null
-     */
-    public function groupRouteHandle(Route $route): ?string
-    {
-        return $route->isGroup() ? '/{id}' : null;
-    }
-
-    /**
-     * Get the route parse POST collection.
+     * Return the list of collection for the current route
      *
      * @return array
      */
-    protected function getPostCollection(): array
+    public function getCollections() : array
+    {
+        return $this->collections;
+    }
+
+    /**
+     * Get POST collection from based on the route.
+     *
+     * @return array
+     */
+    protected function addPostCollection(): void
     {
         $collection = Collection::fromRoute($this->route);
 
@@ -77,20 +75,18 @@ class RouteParser
             $action
         );
 
-        $collections[] = $collection;
-
-        return $collections;
+        $this->addCollection($collection);
     }
 
     /**
-     * Get the route parse GET collection.
+     * Get GET collection from based on the route.
      *
      * @return array
      */
-    protected function getGetCollections(): array
+    protected function addGetCollection(): void
     {
         $collection = Collection::fromRoute($this->route);
-        $collection2 = clone $collection;
+        $this->route->useRestConvention() and $collection2 = clone $collection;
 
         $action = $this->route->getAction() ?? static::ACTIONS[Http::GET];
 
@@ -99,90 +95,110 @@ class RouteParser
             $action
         );
 
-        $collections[] = $collection;
+        $this->addCollection($collection);
 
-        if ($this->route->isGroup()) {
+        // If the route has useRestConvention to true, we need to add another GEt collection in order
+        // to have one to get a list of resources and other to get a specific resource
+        if ($this->route->useRestConvention()) {
+
             $collection2->get(
-                $this->route->getPattern() . $this->groupRouteHandle($this->route), // TODO: Find a name to use a constant
-                'getById' // TODO: Find a better way to achieve this
+                $this->parsePattern($this->route->getPattern()),
+                static::GET_SPECIFIC_RESOURCE_ACTION
             );
 
-            $collections[] = $collection2;
+            $this->addCollection($collection2);
         }
 
-        return $collections;
     }
 
     /**
-     * Get the route parse PUT collection.
+     * Get PUT collection from based on the route.
      *
      * @return array
      */
-    protected function getPutCollection(): array
+    protected function addPutCollection(): void
     {
         $collection = Collection::fromRoute($this->route);
 
         $action = $this->route->getAction() ?? static::ACTIONS[Http::PUT];
 
         $collection->put(
-            $this->route->getPattern() . $this->groupRouteHandle($this->route),
+            $this->parsePattern($this->route->getPattern()),
             $action
         );
 
-        $collections[] = $collection;
-
-        return $collections;
+        $this->addCollection($collection);
     }
 
     /**
-     * Get the route parse PATCH collection.
+     * Get PATCH collection from based on the route.
      *
      * @return array
      */
-    protected function getPatchCollection(): array
+    protected function addPatchCollection(): void
     {
         $collection = Collection::fromRoute($this->route);
 
         $action = $this->route->getAction() ?? static::ACTIONS[Http::PATCH];
 
         $collection->patch(
-            $this->route->getPattern() . $this->groupRouteHandle($this->route),
+            $this->parsePattern($this->route->getPattern()),
             $action
         );
 
-        $collections[] = $collection;
-
-        return $collections;
+        $this->addCollection($collection);
     }
 
     /**
-     * Get the route parse DELETE collection.
+     * Get DELETE collection from based on the route.
      *
      * @return array
      */
-    protected function getDeleteCollection(): array
+    protected function addDeleteCollection(): void
     {
         $collection = Collection::fromRoute($this->route);
 
         $action = $this->route->getAction() ?? static::ACTIONS[Http::DELETE];
 
         $collection->delete(
-            $this->route->getPattern() . $this->groupRouteHandle($this->route),
+            $this->parsePattern($this->route->getPattern()),
             $action
         );
 
-        $collections[] = $collection;
-
-        return $collections;
+        $this->addCollection($collection);
     }
 
     /**
-     * Verify if it has a method.
+     * Verify whether the current route has a specific method in its via.
      *
      * @return bool
      */
     protected function hasMethod(string $method): bool
     {
         return in_array($method, $this->route->getVia());
+    }
+
+    /**
+     * Add a collection to the collections list
+     *
+     * @param Collection $collection
+     * @return void
+     */
+    protected function addCollection(Collection $collection): void
+    {
+        $this->collections[] = $collection;
+    }
+
+    /**
+     * Transform a pattern in rest convention if needed
+     *
+     * @param string $pattern
+     * @return string
+     */
+    protected function parsePattern(string $pattern): string 
+    {
+        $this->route->useRestConvention() and $pattern.= static::SPECIFIC_RESOURCE_PATH;
+
+        return $pattern;
     }
 }
