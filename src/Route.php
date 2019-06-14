@@ -25,7 +25,7 @@ class Route
     protected $controller;
     protected $via = [];
     protected $middlewares = [];
-    protected $isGroup = false;
+    protected $restConvention = false;
 
     public function __construct(string $path)
     {
@@ -217,7 +217,7 @@ class Route
         $this->via = array_intersect(
             $methods,
             Http::METHODS
-            );
+        );
 
         return $this;
     }
@@ -344,7 +344,7 @@ class Route
             return '/' . $path;
         }
 
-        return rtrim('/' . $prefix . '/' . $path, '/');
+        return rtrim("/{$prefix}/{$path}", '/');
     }
 
     /**
@@ -482,24 +482,17 @@ class Route
         );
     }
 
-    /**
-     * We need to let this object know when we are working with a set of group routes.
-     *
-     * @param boolean $state
-     * @return void
-     */
-    public function setGroup(bool $state): void
-    {
-        $this->isGroup = $state;
-    }
 
-    /**
-     * Is this a group route?
-     *
-     * @return void
-     */
-    public function isGroup(): bool
+   /**
+    * Return whether the parse should use rest convenction or not
+    *
+    * @param [type] $state
+    * @return boolean
+    */
+    public function useRestConvention($state = null): bool
     {
-        return $this->isGroup;
+        !is_null($state) and $this->restConvention = (bool) $state;
+            
+        return $this->restConvention;
     }
 }
