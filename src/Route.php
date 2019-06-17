@@ -35,13 +35,6 @@ class Route
     /**
      * Create a Route instance based on the path given accessible through all default methods.
      *
-     *@get (/path)
-     *@get (/path/{id:[0-9]+)
-     *@post (/path)
-     *@put (/path/{id:[0-9]+)
-     *@path (/path/{id:[0-9]+)
-     *@delete (/path/{id:[0-9]+)
-     *
      * @param string $path
      *
      * @return self
@@ -56,6 +49,8 @@ class Route
         return $route;
     }
 
+    // TODO: delete this alias when canvas-core doesn't use it anymore
+    
     /**
      * Alias for crud static method
      *
@@ -69,9 +64,6 @@ class Route
 
     /**
      * Create a Route instance based on the path given accessible only through get method.
-     *
-     *@get (/path)
-     *@get (/path/{id:[0-9]+)
      *
      * @param string $path
      *
@@ -88,8 +80,6 @@ class Route
     /**
      * Create a Route instance based on the path given accessible only through post method.
      *
-     *@post (/path)
-     *
      * @param string $path
      *
      * @return self
@@ -104,8 +94,6 @@ class Route
 
     /**
      * CCreate a Route instance based on the path given accessible only through put method.
-     *
-     *@put (/path/{id:[0-9]+)
      *
      * @param string $path
      *
@@ -122,8 +110,6 @@ class Route
     /**
      * Create a Route instance based on the path given accessible only through patch method.
      *
-     *@patch (/path/{id:[0-9]+)
-     *
      * @param string $path
      *
      * @return self
@@ -138,8 +124,6 @@ class Route
 
     /**
      * Create a Route instance based on the path given accessible only through delete method.
-     *
-     *@delete (/path/{id:[0-9]+)
      *
      * @param string $path
      *
