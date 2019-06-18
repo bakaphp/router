@@ -33,6 +33,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_align' => false,
         'phpdoc_order' => true,
         'phpdoc_summary' => false,
+        'phpdoc_no_empty_return' => false,
         'php_unit_construct' => true,
         'php_unit_strict' => true,
         'psr4' => true,
