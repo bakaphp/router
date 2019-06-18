@@ -303,13 +303,16 @@ class Route
     }
 
     /**
-     * Return the route http methods.
+     * Return the route http verbs.
+     * This is filtered by notVia methods
      *
      * @return array
      */
     public function getVia(): array
     {
-        return $this->via;
+        return array_diff($this->via, $this->getNotVia());
+    }
+
     /**
      * Return the route http verbs that will be excluded.
      *
