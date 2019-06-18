@@ -24,6 +24,7 @@ class Route
     protected $namespace;
     protected $controller;
     protected $via = [];
+    protected $notVia = [];
     protected $middlewares = [];
     protected $restConvention = false;
 
@@ -212,6 +213,24 @@ class Route
     }
 
     /**
+     * Set the methods which this route wont be accessible.
+     * This method filters the given methods in order to only add the valid ones.
+     *
+     * @param [type] ...$methods
+     *
+     * @return self
+     */
+    public function notVia(...$methods): self
+    {
+        $this->notVia = array_intersect(
+             $methods,
+             Http::METHODS
+         );
+
+        return $this;
+    }
+
+    /**
      * Set the path to match the route.
      *
      * @param string $path
@@ -291,6 +310,14 @@ class Route
     public function getVia(): array
     {
         return $this->via;
+    /**
+     * Return the route http verbs that will be excluded.
+     *
+     * @return array
+     */
+    public function getNotVia(): array
+    {
+        return $this->notVia;
     }
 
     /**
