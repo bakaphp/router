@@ -2,11 +2,11 @@
 
 namespace Baka\Router;
 
-use Baka\Support\Str;
-use Baka\Router\Utils\Http;
+use function array_intersect;
 use Baka\Router\Parsers\RouteParser;
 use Baka\Router\Utils\Helper;
-use function array_intersect;
+use Baka\Router\Utils\Http;
+use Baka\Support\Str;
 
 class Route
 {
@@ -24,6 +24,7 @@ class Route
     protected $namespace;
     protected $controller;
     protected $via = [];
+    protected $notVia = [];
     protected $middlewares = [];
     protected $restConvention = false;
 
@@ -43,18 +44,19 @@ class Route
     {
         $route = new self($path);
         $route->via(...static::DEFAULT_HTTP_METHODS);
-        
+
         $route->useRestConvention(true);
 
         return $route;
     }
 
     // TODO: delete this alias when canvas-core doesn't use it anymore
-    
+
     /**
      * Alias for crud static method
      *
      * @param string $path
+     *
      * @return self
      */
     public static function add(string $path): self
@@ -154,6 +156,7 @@ class Route
      * Set a prefix to the route.
      *
      * @param string $prefix
+     *
      * @return self
      */
     public function prefix(string $prefix): self
@@ -167,6 +170,7 @@ class Route
      * Set a namespace to the route.
      *
      * @param string $prefix
+     *
      * @return self
      */
     public function namespace(string $namespace): self
@@ -180,6 +184,7 @@ class Route
      * Set a controller to the route.
      *
      * @param string $prefix
+     *
      * @return self
      */
     public function controller(string $controller): self
@@ -193,7 +198,8 @@ class Route
      * Set the methods which this route will be accessible.
      * This method filters the given methods in order to only add the valid ones.
      *
-     * @param string $prefix
+     * @param [type] ...$methods
+     *
      * @return self
      */
     public function via(...$methods): self
@@ -207,9 +213,28 @@ class Route
     }
 
     /**
+     * Set the methods which this route wont be accessible.
+     * This method filters the given methods in order to only add the valid ones.
+     *
+     * @param [type] ...$methods
+     *
+     * @return self
+     */
+    public function notVia(...$methods): self
+    {
+        $this->notVia = array_intersect(
+             $methods,
+             Http::METHODS
+         );
+
+        return $this;
+    }
+
+    /**
      * Set the path to match the route.
      *
      * @param string $path
+     *
      * @return self
      */
     public function path(string $path): self
@@ -223,6 +248,7 @@ class Route
      * Set the method that will be call when the route is matched.
      *
      * @param string $action
+     *
      * @return self
      */
     public function action(string $action): self
@@ -236,6 +262,7 @@ class Route
      * Set middlewares to the current route.
      *
      * @param [mixed] ...$middlewares
+     *
      * @return self
      */
     public function middlewares(...$middlewares): self
@@ -276,13 +303,24 @@ class Route
     }
 
     /**
-     * Return the route http methods.
+     * Return the route http verbs.
+     * This is filtered by notVia methods
      *
      * @return array
      */
     public function getVia(): array
     {
-        return $this->via;
+        return array_diff($this->via, $this->getNotVia());
+    }
+
+    /**
+     * Return the route http verbs that will be excluded.
+     *
+     * @return array
+     */
+    public function getNotVia(): array
+    {
+        return $this->notVia;
     }
 
     /**
@@ -351,6 +389,7 @@ class Route
      * Return a copy of the Route with the given prefix set.
      *
      * @param string $prefix
+     *
      * @return self
      */
     public function withPrefix(string $prefix): self
@@ -365,6 +404,7 @@ class Route
      * Return a copy of the Route with the given namespace set.
      *
      * @param string $namespace
+     *
      * @return self
      */
     public function withNamespace(string $namespace): self
@@ -379,6 +419,7 @@ class Route
      * Return a copy of the Route with the given controller set.
      *
      * @param string $controller
+     *
      * @return self
      */
     public function withController(string $controller): self
@@ -390,9 +431,10 @@ class Route
     }
 
     /**
-     * Return a copy of the Route with the given http methods set.
+     * Return a copy of the Route with the given http verbs set.
      *
      * @param $methods
+     *
      * @return self
      */
     public function withVia(...$methods): self
@@ -407,6 +449,7 @@ class Route
      * Return a copy of the Route with the given path set.
      *
      * @param string $path
+     *
      * @return self
      */
     public function withPath(string $path): self
@@ -421,6 +464,7 @@ class Route
      * Return a copy of the Route with the given action set.
      *
      * @param string $action
+     *
      * @return self
      */
     public function withAction(string $action): self
@@ -443,7 +487,7 @@ class Route
     }
 
     /**
-     * Set default http methods as via.
+     * Set default http verbs as via.
      *
      * @return void
      */
@@ -466,17 +510,17 @@ class Route
         );
     }
 
-
-   /**
-    * Return whether the parse should use rest convenction or not
-    *
-    * @param [type] $state
-    * @return boolean
-    */
+    /**
+     * Return whether the parse should use rest convenction or not
+     *
+     * @param [type] $state
+     *
+     * @return bool
+     */
     public function useRestConvention($state = null): bool
     {
-        !is_null($state) and $this->restConvention = (bool) $state;
-            
+        null !== $state and $this->restConvention = (bool) $state;
+
         return $this->restConvention;
     }
 }
