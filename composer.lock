@@ -48,16 +48,16 @@
         },
         {
             "name": "phalcon/incubator",
-            "version": "v3.4.3",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/incubator.git",
-                "reference": "2ab139c977577dbcb42e0f766cb7631966abe278"
+                "reference": "08ab1a938d8160a2f0d1df535822ecc86e85220e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/incubator/zipball/2ab139c977577dbcb42e0f766cb7631966abe278",
-                "reference": "2ab139c977577dbcb42e0f766cb7631966abe278",
+                "url": "https://api.github.com/repos/phalcon/incubator/zipball/08ab1a938d8160a2f0d1df535822ecc86e85220e",
+                "reference": "08ab1a938d8160a2f0d1df535822ecc86e85220e",
                 "shasum": ""
             },
             "require": {
@@ -66,7 +66,7 @@
             },
             "require-dev": {
                 "codeception/aerospike-module": "^1.0",
-                "codeception/codeception": "2.3.6",
+                "codeception/codeception": "^2.5",
                 "codeception/mockery-module": "0.2.2",
                 "codeception/specify": "^0.4",
                 "codeception/verify": "^0.3",
@@ -113,7 +113,7 @@
                 "incubator",
                 "phalcon"
             ],
-            "time": "2018-11-19T09:30:11+00:00"
+            "time": "2019-06-07T09:00:02+00:00"
         }
     ],
     "packages-dev": [
