@@ -43,7 +43,7 @@ class RouteMiddlewareHelper
             );
 
             if ($event) {
-                return $foundRouteMiddleware and $event === $middleware->getEvent();
+                return $foundRouteMiddleware && $event === $middleware->getEvent();
             }
 
             return $foundRouteMiddleware;
@@ -61,8 +61,10 @@ class RouteMiddlewareHelper
 
         //post, get, put, patch? what methos is this route
         $routeMethod = $this->api->di->get('router')->getMatchedRoute()->getHttpMethods();
+        $routePattern = $this->api->di->get('router')->getMatchedRoute()->getPattern();
+
         return  strtolower(Slug::generate(
-            $routeMethod . '-' . ($activeHanlder[0])->getDefinition() . '-' . $activeHanlder[1]
+            $routeMethod . '-' . $routePattern . '-' . ($activeHanlder[0])->getDefinition() . '-' . $activeHanlder[1]
         ));
     }
 

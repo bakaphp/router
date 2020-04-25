@@ -51,8 +51,9 @@ class Collection extends PhCollection
     public function getCollectionIdentifier(): string
     {
         //$this->getHandlers()[0][0] whats the router method? GET , POST, PUT , DELETE
+        //$this->getHandlers()[0][1] what the prefix
         return strtolower(Slug::generate(
-            $this->getHandlers()[0][0] . '-' . $this->getHandler() . '-' . $this->getHandlers()[0][2]
+            $this->getHandlers()[0][0] . '-' . $this->getHandlers()[0][1] . '-' . $this->getHandler() . '-' . $this->getHandlers()[0][2]
         ));
     }
 }

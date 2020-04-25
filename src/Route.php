@@ -28,6 +28,11 @@ class Route
     protected $middlewares = [];
     protected $restConvention = false;
 
+    /**
+     * Constructor.
+     *
+     * @param string $path
+     */
     public function __construct(string $path)
     {
         $this->path($path);
@@ -198,7 +203,7 @@ class Route
      * Set the methods which this route will be accessible.
      * This method filters the given methods in order to only add the valid ones.
      *
-     * @param [type] ...$methods
+     * @param array ...$methods
      *
      * @return self
      */
@@ -216,7 +221,7 @@ class Route
      * Set the methods which this route wont be accessible.
      * This method filters the given methods in order to only add the valid ones.
      *
-     * @param [type] ...$methods
+     * @param array ...$methods
      *
      * @return self
      */
@@ -482,8 +487,13 @@ class Route
      */
     protected function setDefaultOptions(): void
     {
-        !$this->getVia() and $this->setDefaultVia();
-        !$this->getController() and $this->setDefaultController();
+        if (!$this->getVia()) {
+            $this->setDefaultVia();
+        }
+
+        if (!$this->getController()) {
+            $this->setDefaultController();
+        }
     }
 
     /**
@@ -519,7 +529,9 @@ class Route
      */
     public function useRestConvention($state = null): bool
     {
-        null !== $state and $this->restConvention = (bool) $state;
+        if (null !== $state) {
+            $this->restConvention = (bool) $state;
+        }
 
         return $this->restConvention;
     }
