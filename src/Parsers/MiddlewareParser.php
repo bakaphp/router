@@ -1,11 +1,12 @@
 <?php
+
 namespace Baka\Router\Parsers;
 
 use Baka\Support\Str;
 use Baka\Support\Arr;
 use Baka\Router\Middleware;
 
-class MiddlewareParser 
+class MiddlewareParser
 {
     const MIDDLEWARE_KEY_DELIMETER = '@';
     const EVENT_DELIMETER = ':';
@@ -13,6 +14,11 @@ class MiddlewareParser
 
     protected $middlewareNotation;
 
+    /**
+     * Constructor.
+     *
+     * @param string $middlewareNotation
+     */
     public function __construct(string $middlewareNotation)
     {
         $this->middlewareNotation = $middlewareNotation;
@@ -21,52 +27,80 @@ class MiddlewareParser
         $this->extractParameters();
     }
 
-    public function parse(): Middleware 
+    /**
+     * Attach the element's to the middleware.
+     *
+     * @return Middleware
+     */
+    public function parse(): Middleware
     {
         $middlewareKey = $this->extractMiddlewareKey();
         $event = $this->extractEvent();
         $parameters = $this->extractParameters();
 
         $middleware = new Middleware($middlewareKey);
-        $event and $middleware->event($event);
-        $parameters and $middleware->parameters($parameters);
+        if ($event) {
+            $middleware->event($event);
+        }
+        if ($parameters) {
+            $middleware->parameters($parameters);
+        }
 
         return $middleware;
     }
 
-    protected function extractMiddlewareKey(): string 
+    /**
+     * Return the key for this middleware.
+     *
+     * @return string
+     */
+    protected function extractMiddlewareKey(): string
     {
-       return current(
-            explode(static::MIDDLEWARE_KEY_DELIMETER,
-            $this->middlewareNotation,-1)
-       );
+        return current(
+            explode(
+                static::MIDDLEWARE_KEY_DELIMETER,
+                $this->middlewareNotation,
+                -1
+            )
+        );
     }
 
-    protected function extractEvent(): string 
+    /**
+     * Extract the event of the middleware.
+     *
+     * @return string
+     */
+    protected function extractEvent(): string
     {
-        if(Str::includes(static::EVENT_DELIMETER,$this->middlewareNotation)){
+        if (Str::includes(static::EVENT_DELIMETER, $this->middlewareNotation)) {
             return Str::firstStringBetween(
-                $this->middlewareNotation,static::MIDDLEWARE_KEY_DELIMETER,
+                $this->middlewareNotation,
+                static::MIDDLEWARE_KEY_DELIMETER,
                 static::EVENT_DELIMETER
             );
         }
 
         return Arr::last(
-            explode(static::MIDDLEWARE_KEY_DELIMETER,$this->middlewareNotation)
+            explode(static::MIDDLEWARE_KEY_DELIMETER, $this->middlewareNotation)
         );
     }
 
-    protected function extractParameters(): array 
+    /**
+     * Extract the params.
+     *
+     * @return array
+     */
+    protected function extractParameters(): array
     {
-        if(Str::includes(static::EVENT_DELIMETER, $this->middlewareNotation)){
+        if (Str::includes(static::EVENT_DELIMETER, $this->middlewareNotation)) {
             $paramters = Arr::last(
                 explode(
-                    static::EVENT_DELIMETER, 
+                    static::EVENT_DELIMETER,
                     $this->middlewareNotation
                 )
             );
 
-            return explode(static::PARAMETER_DELIMETER,$paramters);
+            return explode(static::PARAMETER_DELIMETER, $paramters);
         }
 
         return [];

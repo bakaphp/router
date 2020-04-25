@@ -28,6 +28,11 @@ class Route
     protected $middlewares = [];
     protected $restConvention = false;
 
+    /**
+     * Constructor.
+     *
+     * @param string $path
+     */
     public function __construct(string $path)
     {
         $this->path($path);
@@ -53,7 +58,7 @@ class Route
     // TODO: delete this alias when canvas-core doesn't use it anymore
 
     /**
-     * Alias for crud static method
+     * Alias for crud static method.
      *
      * @param string $path
      *
@@ -198,7 +203,7 @@ class Route
      * Set the methods which this route will be accessible.
      * This method filters the given methods in order to only add the valid ones.
      *
-     * @param [type] ...$methods
+     * @param array ...$methods
      *
      * @return self
      */
@@ -216,15 +221,15 @@ class Route
      * Set the methods which this route wont be accessible.
      * This method filters the given methods in order to only add the valid ones.
      *
-     * @param [type] ...$methods
+     * @param array ...$methods
      *
      * @return self
      */
     public function notVia(...$methods): self
     {
         $this->notVia = array_intersect(
-             $methods,
-             Http::METHODS
+            $methods,
+            Http::METHODS
          );
 
         return $this;
@@ -304,7 +309,7 @@ class Route
 
     /**
      * Return the route http verbs.
-     * This is filtered by notVia methods
+     * This is filtered by notVia methods.
      *
      * @return array
      */
@@ -374,7 +379,7 @@ class Route
      *
      * @return string
      */
-    public function getHanlder(): string
+    public function getHandler(): string
     {
         $controller = (string) $this->getController();
 
@@ -482,8 +487,13 @@ class Route
      */
     protected function setDefaultOptions(): void
     {
-        !$this->getVia() and $this->setDefaultVia();
-        !$this->getController() and $this->setDefaultController();
+        if (!$this->getVia()) {
+            $this->setDefaultVia();
+        }
+
+        if (!$this->getController()) {
+            $this->setDefaultController();
+        }
     }
 
     /**
@@ -511,7 +521,7 @@ class Route
     }
 
     /**
-     * Return whether the parse should use rest convenction or not
+     * Return whether the parse should use rest convenction or not.
      *
      * @param [type] $state
      *
@@ -519,7 +529,9 @@ class Route
      */
     public function useRestConvention($state = null): bool
     {
-        null !== $state and $this->restConvention = (bool) $state;
+        if (null !== $state) {
+            $this->restConvention = (bool) $state;
+        }
 
         return $this->restConvention;
     }

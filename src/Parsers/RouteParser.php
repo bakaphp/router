@@ -50,7 +50,7 @@ class RouteParser
     }
 
     /**
-     * Return the list of collection for the current route
+     * Return the list of collection for the current route.
      *
      * @return array
      */
@@ -100,7 +100,6 @@ class RouteParser
         // If the route has useRestConvention to true, we need to add another GEt collection in order
         // to have one to get a list of resources and other to get a specific resource
         if ($this->route->useRestConvention()) {
-
             $collection2->get(
                 $this->parsePattern($this->route->getPattern()),
                 static::GET_SPECIFIC_RESOURCE_ACTION
@@ -108,7 +107,6 @@ class RouteParser
 
             $this->addCollection($collection2);
         }
-
     }
 
     /**
@@ -179,7 +177,7 @@ class RouteParser
     }
 
     /**
-     * Add a collection to the collections list
+     * Add a collection to the collections list.
      *
      * @param Collection $collection
      * @return void
@@ -190,14 +188,14 @@ class RouteParser
     }
 
     /**
-     * Transform a pattern in rest convention if needed
+     * Transform a pattern in rest convention if needed.
      *
      * @param string $pattern
      * @return string
      */
-    protected function parsePattern(string $pattern): string 
+    protected function parsePattern(string $pattern): string
     {
-        $this->route->useRestConvention() and $pattern.= static::SPECIFIC_RESOURCE_PATH;
+        $this->route->useRestConvention() and $pattern .= static::SPECIFIC_RESOURCE_PATH;
 
         return $pattern;
     }

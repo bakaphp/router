@@ -12,7 +12,6 @@ use Baka\Router\Middlewares\RouteMiddleware;
 
 class MiddlewareProvider implements ServiceProviderInterface
 {
-
     protected $globalMiddlewares = [];
     protected $routeMiddlewares = [];
 
@@ -21,38 +20,37 @@ class MiddlewareProvider implements ServiceProviderInterface
      */
     public function register(DiInterface $container)
     {
-       /** @var Micro $application */
-       $application   = $container->getShared('application');
-       /** @var Manager $eventsManager */
-       $eventsManager = $container->getShared('eventsManager');
-       // $eventsManager->enablePriorities(true);
+        /** @var Micro $application */
+        $application = $container->getShared('application');
+        /** @var Manager $eventsManager */
+        $eventsManager = $container->getShared('eventsManager');
+        // $eventsManager->enablePriorities(true);
 
-       $this->attachMiddleware($application, $eventsManager);
+        $this->attachMiddleware($application, $eventsManager);
 
-       $application->setEventsManager($eventsManager);
+        $application->setEventsManager($eventsManager);
     }
 
-      /**
-     * Attaches the middleware to the application
+    /**
+     * Attaches the middleware to the application.
      *
      * @param Micro   $application
      * @param Manager $eventsManager
      */
-     protected function attachMiddleware(Micro $application, Manager $eventsManager)
-     {
-         /**
-          * Get the events manager and attach the middleware to it
-          */
-         foreach ($this->globalMiddlewares as $class => $function) {
-             $eventsManager->attach('micro', new $class());
-             $application->{$function}(new $class());
-         }
+    protected function attachMiddleware(Micro $application, Manager $eventsManager)
+    {
+        /**
+         * Get the events manager and attach the middleware to it.
+         */
+        foreach ($this->globalMiddlewares as $class => $function) {
+            $eventsManager->attach('micro', new $class());
+            $application->{$function}(new $class());
+        }
 
-         $routeMiddleware = new RouteMiddleware($application, $this->routeMiddlewares);
-         
-         $eventsManager->attach('micro', $routeMiddleware);
-         $application->before($routeMiddleware);
-         $application->after($routeMiddleware);
-     }
+        $routeMiddleware = new RouteMiddleware($application, $this->routeMiddlewares);
 
+        $eventsManager->attach('micro', $routeMiddleware);
+        $application->before($routeMiddleware);
+        $application->after($routeMiddleware);
+    }
 }
