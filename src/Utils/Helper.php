@@ -2,10 +2,16 @@
 
 namespace Baka\Router\Utils;
 
-class Helper {
-
+class Helper
+{
+    /**
+     * Trim slashes.
+     *
+     * @param string $str
+     * @return string
+     */
     public static function trimSlahes(string $str): string
     {
-        return trim($str,'/');
+        return trim($str, '/');
     }
 }
