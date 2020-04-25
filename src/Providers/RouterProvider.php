@@ -18,14 +18,14 @@ class RouterProvider implements ServiceProviderInterface
     public function register(DiInterface $container)
     {
         /** @var Micro $application */
-        $application   = $container->getShared('application');
+        $application = $container->getShared('application');
 
         $this->attachRoutes($application);
         $this->attachRouteMiddlewares($container);
     }
 
     /**
-     * Attache the routes to the application; lazy loaded
+     * Attache the routes to the application; lazy loaded.
      *
      * @param Micro $application
      */
@@ -34,11 +34,10 @@ class RouterProvider implements ServiceProviderInterface
         foreach ($this->getCollections() as $collection) {
             $application->mount($collection);
         }
-
     }
 
     /**
-     * Attache routes' middlewares
+     * Attache routes' middlewares.
      *
      * @param DiInterface $container
      */
@@ -50,9 +49,10 @@ class RouterProvider implements ServiceProviderInterface
             $key = $collection->getCollectionIdentifier();
             $middlewares = $collection->getMiddlewares();
 
-            $middlewares and $routeMiddlewares[$key] = $middlewares;
+            if ($middlewares) {
+                $routeMiddlewares[$key] = $middlewares;
+            }
         }
-
 
         $container->setShared(
             'routeMiddlewares',
@@ -60,11 +60,10 @@ class RouterProvider implements ServiceProviderInterface
                 return $routeMiddlewares;
             }
         );
-
     }
 
     /**
-     * Return the array of collections
+     * Return the array of collections.
      *
      * @return array
      */
@@ -72,5 +71,4 @@ class RouterProvider implements ServiceProviderInterface
     {
         return [];
     }
-
 }

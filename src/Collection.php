@@ -11,7 +11,7 @@ class Collection extends PhCollection
     protected $route;
 
     /**
-     * Create a new instance of Collection based on Route instance
+     * Create a new instance of Collection based on Route instance.
      *
      * @param Route $route
      *
@@ -21,17 +21,17 @@ class Collection extends PhCollection
     {
         $collection = new self();
         $collection->route = $route;
-        $collection->setHandler($route->getHanlder(), true);
+        $collection->setHandler($route->getHandler(), true);
 
         return $collection;
     }
 
     /**
-     * Return collection's middlewares
+     * Return collection's middlewares.
      *
      * @return array
      */
-    public function getMiddlewares() : array
+    public function getMiddlewares(): array
     {
         $middlewares = [];
 
@@ -44,14 +44,15 @@ class Collection extends PhCollection
     }
 
     /**
-     * Return a unique identifier for the current collection
+     * Return a unique identifier for the current collection.
      *
      * @return string
      */
-    public function getCollectionIdentifier() : string
+    public function getCollectionIdentifier(): string
     {
-        return Slug::generate(
-            $this->getHandler().'-'.$this->getHandlers()[0][2]
-        );
+        //$this->getHandlers()[0][0] whats the router method? GET , POST, PUT , DELETE
+        return strtolower(Slug::generate(
+            $this->getHandlers()[0][0] . '-' . $this->getHandler() . '-' . $this->getHandlers()[0][2]
+        ));
     }
 }

@@ -53,7 +53,7 @@ class Route
     // TODO: delete this alias when canvas-core doesn't use it anymore
 
     /**
-     * Alias for crud static method
+     * Alias for crud static method.
      *
      * @param string $path
      *
@@ -223,8 +223,8 @@ class Route
     public function notVia(...$methods): self
     {
         $this->notVia = array_intersect(
-             $methods,
-             Http::METHODS
+            $methods,
+            Http::METHODS
          );
 
         return $this;
@@ -304,7 +304,7 @@ class Route
 
     /**
      * Return the route http verbs.
-     * This is filtered by notVia methods
+     * This is filtered by notVia methods.
      *
      * @return array
      */
@@ -374,7 +374,7 @@ class Route
      *
      * @return string
      */
-    public function getHanlder(): string
+    public function getHandler(): string
     {
         $controller = (string) $this->getController();
 
@@ -511,7 +511,7 @@ class Route
     }
 
     /**
-     * Return whether the parse should use rest convenction or not
+     * Return whether the parse should use rest convenction or not.
      *
      * @param [type] $state
      *
